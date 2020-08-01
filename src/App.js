@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import {Header} from './components/Header';
 import {Player} from './components/Player';
+import {AddPlayerForm} from "./components/AddPlayerForm";
 
 class App extends React.Component {
   state = {
@@ -26,13 +27,31 @@ class App extends React.Component {
   }
 
   handleChangeScore = (id, delta) => {
-    console.log('handleScore:', id,delta);
+    // console.log('handleScore:', id,delta);
+    this.setState(prevState => {
+      const players = [ ...prevState.players ];
+      players.forEach(player => {
+        if(player.id === id) {
+          player.score += delta;
+        }
+      });
+      return {players};
+    });
+  }
+
+  handleAddPlayer = (name) => {
+    console.log('handleAddPlayer');
+    this.setState(prevState => {
+      const players = [ ...prevState.players ];
+      players.push({name: name.toUpperCase(), score: 0, id: players.length+1});
+      return {players};
+    })
   }
 
   render() {
     return (
       <div className="scoreboard">
-        <Header></Header>
+        <Header players={this.state.players} />
 
         {
           this.state.players.map(player =>
@@ -41,7 +60,7 @@ class App extends React.Component {
                     removePlayer={this.handleRemovePlayer}
                     changeScore={this.handleChangeScore} />)
         }
-
+        <AddPlayerForm addPlayer={this.handleAddPlayer} />
       </div>
     );
   }
