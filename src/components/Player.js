@@ -1,4 +1,4 @@
-import {Counter} from "./Counter";
+import Counter from "./Counter";
 import React from "react";
 import {addPlayer, removePlayer} from "../redux/actions";
 import {connect} from "react-redux";

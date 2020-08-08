@@ -1,4 +1,4 @@
-import {ADD_PLAYER, REMOVE_PLAYER} from "../action_types";
+import {ADD_PLAYER, CHANGE_SCORE, REMOVE_PLAYER} from "../action_types";
 
 let maxId = 4;
 const playerInitialState = {
@@ -20,6 +20,13 @@ export const playerReducer = (state = playerInitialState, action) => {
     case REMOVE_PLAYER:
       const index = players.findIndex(player => player.id === action.id)
       players.splice(index, 1);
+      break;
+    case CHANGE_SCORE:
+      players.forEach(player => {
+        if(player.id === action.id) {
+          player.score += action.delta;
+        }
+      });
       break;
     default:
       return state;

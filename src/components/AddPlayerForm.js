@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from "react-redux";
-import {addPlayer, updateUser} from "../redux/actions";
+import {addPlayer} from "../redux/actions";
 
 class AddPlayerForm extends React.Component {
   state = {
