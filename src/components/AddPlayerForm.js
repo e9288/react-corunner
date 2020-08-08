@@ -1,6 +1,8 @@
 import React from 'react'
+import {connect} from "react-redux";
+import {addPlayer, updateUser} from "../redux/actions";
 
-export class AddPlayerForm extends React.Component {
+class AddPlayerForm extends React.Component {
   state = {
     value: ''
   }
@@ -20,7 +22,7 @@ export class AddPlayerForm extends React.Component {
     console.log(player.validity.valid);
     console.log(form.checkValidity());
 
-    if(!form.checkValidity()){
+    if (!form.checkValidity()) {
 
       return;
     }
@@ -31,10 +33,17 @@ export class AddPlayerForm extends React.Component {
 
   render() {
     return (
-      <form id="form" className="form" onSubmit={this.handleSubmit} noValidate >
-        <input id="player" className="input" type="text" placeholder="enter a player's name" value={this.state.value} onChange={this.handleValueChange} required />
-        <input className="input" type="submit" value="ADD PLAYER" />
+      <form id="form" className="form" onSubmit={this.handleSubmit} noValidate>
+        <input id="player" className="input" type="text" placeholder="enter a player's name" value={this.state.value}
+               onChange={this.handleValueChange} required/>
+        <input className="input" type="submit" value="ADD PLAYER"/>
       </form>
     );
   }
 }
+
+const mapActionToProps = (dispatch) => ({
+  addPlayer: (name) => dispatch(addPlayer(name))
+  // dispatch(action)
+})
+export default connect(null, mapActionToProps)(AddPlayerForm);

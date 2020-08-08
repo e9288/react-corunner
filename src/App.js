@@ -2,29 +2,11 @@ import React from 'react';
 import './App.css';
 import {Header} from './components/Header';
 import {Player} from './components/Player';
-import {AddPlayerForm} from "./components/AddPlayerForm";
+import AddPlayerForm from "./components/AddPlayerForm";
+import {connect} from "react-redux";
 
 class App extends React.Component {
-  state = {
-    players: [
-      {name: 'LDK', score: 0, id: 1},
-      {name: 'HONG', score: 0, id: 2},
-      {name: 'KIM', score: 0, id: 3},
-      {name: 'PARK', score: 0, id: 4},
-    ]
-  }
-  // 1. 펑션 작성
-  handleRemovePlayer = (id) => {
-    console.log('remove player: ', id);
-    // 로직 작성
-    this.setState(prevState => {
-      // immutable: 원본데이터가 불변 => 새로운 배열을 리턴
-      const players = [ ...prevState.players ];
-      const index = players.findIndex(player => player.id === id)
-      players.splice(index, 1);
-      return { players: players};
-    })
-  }
+
 
   handleChangeScore = (id, delta) => {
     // console.log('handleScore:', id,delta);
@@ -39,31 +21,26 @@ class App extends React.Component {
     });
   }
 
-  handleAddPlayer = (name) => {
-    console.log('handleAddPlayer');
-    this.setState(prevState => {
-      const players = [ ...prevState.players ];
-      players.push({name: name.toUpperCase(), score: 0, id: players.length+1});
-      return {players};
-    })
-  }
-
   render() {
     return (
       <div className="scoreboard">
-        <Header players={this.state.players} />
+        <Header players={this.props.players} />
 
         {
-          this.state.players.map(player =>
+          this.props.players.map(player =>
             <Player name={player.name} score={player.score} id={player.id} key={player.id}
-              //2. 펑션을 props로 자식에게 내려준다.
-                    removePlayer={this.handleRemovePlayer}
                     changeScore={this.handleChangeScore} />)
         }
-        <AddPlayerForm addPlayer={this.handleAddPlayer} />
+        <AddPlayerForm />
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  //state : store 전체 state
+  //왼쪽이 props, 오른쪽이 store의 state
+  players: state.playerReducer.players
+})
+
+export default connect(mapStateToProps, null)(App);
