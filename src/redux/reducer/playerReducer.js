@@ -1,4 +1,4 @@
-import {ADD_PLAYER} from "../action_types";
+import {ADD_PLAYER, REMOVE_PLAYER} from "../action_types";
 
 let maxId = 4;
 const playerInitialState = {
@@ -12,15 +12,20 @@ const playerInitialState = {
 
 //하나의 reducer 내의 state는 로컬(자기자신)의 state를 가리킨다.
 export const playerReducer = (state = playerInitialState, action) => {
+  let players = [ ...state.players ];
   switch(action.type) {
     case ADD_PLAYER:
-      const players = [ ...state.players ];
       players.push({name: action.name, score: 0, id: ++maxId})
-      return {
-        ...state,
-        players: players
-      };
+      break;
+    case REMOVE_PLAYER:
+      const index = players.findIndex(player => player.id === action.id)
+      players.splice(index, 1);
+      break;
     default:
       return state;
   }
+  return {
+    ...state,
+    players: players
+  };
 }
