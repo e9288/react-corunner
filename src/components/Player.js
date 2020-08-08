@@ -1,6 +1,6 @@
 import Counter from "./Counter";
 import React from "react";
-import {addPlayer, removePlayer} from "../redux/actions";
+import {removePlayer} from "../redux/actions";
 import {connect} from "react-redux";
 
 const Player = (props) => {
@@ -17,9 +17,7 @@ const Player = (props) => {
 }
 
 const mapActionToProps = (dispatch) => ({
-  removePlayer: (id) => dispatch(removePlayer(id)),
-
-  // dispatch(action)
+  removePlayer: (id) => dispatch(removePlayer(id))
 })
 export default connect(null, mapActionToProps)(Player);
 
