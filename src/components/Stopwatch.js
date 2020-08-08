@@ -1,52 +1,76 @@
-import React, {Component} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
-export class Stopwatch extends Component {
+function Stopwatch() {
 
-  tickRef;
+  let tickRef;
+  const [timer, setTimer] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
 
-  state  = {
-    timer: 0,
-    isRunning : false
-  }
-  tick = () => {
-    console.log("a");
-    if(this.state.isRunning){
-      this.setState(prevState => ({
-        timer : prevState.timer + 1
-      }));
+  useInterval(() => {
+    if(isRunning) {
+      setTimer(timer + 1);
     }
+  }, 1000);
 
+  // 3번째 인자의 변수 변경이 감지될때 1 인자 실행(componentDidMount)
+  // (3번째 인자 없을 경우 초기화 1회만 실행),
+  // 컴포넌트 파괴 전 2 인자 실행(componentWillUnMount)
+/*  useEffect(() => {
+    tickRef = setInterval(tick, 1000);
+    return () => {
+      clearInterval(tickRef);
+    }
+  }, []);
+  let tick = () => {
+    console.log("a");
+    if(isRunning){
+      setTimer(timer + 1);
+    }
+  }*/
+
+  let handleStopwatch = () => {
+    setIsRunning(!isRunning);
   }
 
-  handleStopwatch = () => {
-    this.setState(prevState => {
-      return ({
-        isRunning: !prevState.isRunning
-      });
-    })
+  let initTimer = () => {
+    setIsRunning(false);
+    setTimer(0);
+  }
+
+  return (
+    <div className="stopwatch">
+      <h2>Stopwatch</h2>
+      <span className="stopwatch-time">{timer}</span>
+      <button onClick={handleStopwatch}>
+        {isRunning ? 'Stop' : 'Start'}
+      </button>
+      <button onClick={initTimer}>Reset</button>
+    </div>
+  )
 }
-  //DOM rending 직후
-  //api 호출, 3rd lib loading 직후 등
-  componentDidMount() {
-    this.tickRef = window.setInterval(this.tick, 1000);
-  }
 
-  //DOM destory 직전
-  //리소스 해제 등
-  componentWillUnmount() {
-    clearInterval(this.tickRef);
-  }
 
-  render() {
-    return (
-      <div className="stopwatch">
-        <h2>Stopwatch</h2>
-        <span className="stopwatch-time">{this.state.timer}</span>
-        <button onClick={this.handleStopwatch}>
-          {this.state.isRunning ? 'Stop' : 'Start'}
-        </button>
-        <button>Reset</button>
-      </div>
-    )
-  }
+// useEffect와 useInterval을 결합한 Custom hook
+function useInterval(callback, delay) {
+  const savedCallback = useRef();
+
+  // Remember the latest callback.
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  // Set up the interval.
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
 }
+
+export default Stopwatch;
+
+
