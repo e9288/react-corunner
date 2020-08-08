@@ -1,17 +1,17 @@
-import React from 'react'
-import {connect} from "react-redux";
+import React, {useEffect, useState} from 'react'
+import {useDispatch} from "react-redux";
 import {addPlayer} from "../redux/actions";
 
-class AddPlayerForm extends React.Component {
-  state = {
-    value: ''
+
+function AddPlayerForm() {
+  const [value, setValue] = useState('');
+  const dispatch = useDispatch();
+
+  let handleValueChange = (e) => {
+    setValue(e.target.value);
   }
 
-  handleValueChange = (e) => {
-    this.setState({value: e.target.value})
-  }
-
-  handleSubmit = (e) => {
+  let handleSubmit = (e) => {
     // form의 기본 동작 (reloading) 막기
     e.preventDefault();
 
@@ -23,27 +23,20 @@ class AddPlayerForm extends React.Component {
     console.log(form.checkValidity());
 
     if (!form.checkValidity()) {
-
       return;
     }
 
-    this.props.addPlayer(this.state.value);
-    this.setState({value: ''});
+    dispatch(addPlayer(value.toUpperCase()));
+    setValue('');
   }
 
-  render() {
     return (
-      <form id="form" className="form" onSubmit={this.handleSubmit} noValidate>
-        <input id="player" className="input" type="text" placeholder="enter a player's name" value={this.state.value}
-               onChange={this.handleValueChange} required/>
+      <form id="form" className="form" onSubmit={handleSubmit} noValidate>
+        <input id="player" className="input" type="text" placeholder="enter a player's name" value={value}
+               onChange={handleValueChange} required/>
         <input className="input" type="submit" value="ADD PLAYER"/>
       </form>
     );
-  }
 }
 
-const mapActionToProps = (dispatch) => ({
-  addPlayer: (name) => dispatch(addPlayer(name))
-  // dispatch(action)
-})
-export default connect(null, mapActionToProps)(AddPlayerForm);
+export default AddPlayerForm;

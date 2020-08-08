@@ -3,50 +3,32 @@ import './App.css';
 import {Header} from './components/Header';
 import {CustomPlayer} from './components/CustomPlayer';
 import AddPlayerForm from "./components/AddPlayerForm";
-import {connect} from "react-redux";
+import {useSelector} from "react-redux";
 import * as _ from 'lodash';
 
 
-class App extends React.Component {
+function App() {
+  const players = useSelector(state => state.playerReducer.players);
 
-  getHighScore() {
-    const highScoreObject = _.maxBy(this.props.players, 'score');
+  let getHighScore = () => {
+    const highScoreObject = _.maxBy(players, 'score');
     return highScoreObject.score === 0 ? '' : highScoreObject.score;
   }
 
-  handleChangeScore = (id, delta) => {
-    // console.log('handleScore:', id,delta);
-    this.setState(prevState => {
-      const players = [...prevState.players];
-      players.forEach(player => {
-        if (player.id === id) {
-          player.score += delta;
-        }
-      });
-      return {players};
-    });
-  }
 
-  render() {
-    return (
-      <div className="scoreboard">
-        <Header players={this.props.players}/>
+  return (
+    <div className="scoreboard">
+      <Header players={players}/>
 
-        {
-          this.props.players.map(player =>
-            <CustomPlayer name={player.name} score={player.score} id={player.id} key={player.id}
-                          isHighScore={player.score === this.getHighScore()}></CustomPlayer>)
-        }
-        <AddPlayerForm/>
-      </div>
-    );
-  }
+      {
+        players.map(player =>
+          <CustomPlayer name={player.name} score={player.score} id={player.id} key={player.id}
+                        isHighScore={player.score === getHighScore()}></CustomPlayer>)
+      }
+      <AddPlayerForm/>
+    </div>
+  );
+
 }
 
-const mapStateToProps = (state) => ({
-  //state : store 전체 state
-  //왼쪽이 props, 오른쪽이 store의 state
-  players: state.playerReducer.players
-})
-
-export default connect(mapStateToProps, null)(App);
+export default (App);
