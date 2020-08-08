@@ -1,14 +1,16 @@
 import Counter from "./Counter";
 import React from "react";
 import {removePlayer} from "../redux/actions";
-import {connect} from "react-redux";
+import {useDispatch} from "react-redux";
 
 const Player = (props) => {
-  // console.log(props);
+
+  const dispatch = useDispatch();
   return (
     <div className="player">
       <span className='player-name'>
-        <button className='remove-player' onClick={() => props.removePlayer(props.id)}> x </button>
+        <button className='remove-player'
+                onClick={() => dispatch(removePlayer(props.id))}> x </button>
         {props.children}
         {props.name}
       </span>
@@ -17,9 +19,4 @@ const Player = (props) => {
   );
 }
 
-const mapActionToProps = (dispatch) => ({
-  removePlayer: (id) => dispatch(removePlayer(id))
-})
-export default connect(null, mapActionToProps)(Player);
-
-// connect(받음,넘김)(컴포넌트)
+export default Player;
