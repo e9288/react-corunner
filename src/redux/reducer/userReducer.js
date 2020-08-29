@@ -1,4 +1,3 @@
-import {ADD_PLAYER, CHANGE_SCORE, REMOVE_PLAYER} from "../action_types";
 
 let maxId = 4;
 const user = {

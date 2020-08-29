@@ -1,21 +1,31 @@
-import React from "react";
+import React, { Fragment } from "react";
+
+import useWindowDimensions from '../hooks/UseWindowDimensions';
+import { makeStyles } from '@material-ui/core/styles';
 
 export const Header = (props) => {
-    return (
-        <header className='sub_header_bebecam'>
-            <div className='inner'>
-                <h2 className='user_name'>{props.frcsCustNo}</h2>
-                <h4>우리 아기가 잘 있는지 확인해보세요</h4>
-                <div className='bebecam_alram'>
-                    <span className='alram_icon'>
-                            <img src='../img/common/alram_icon.png' alt=''/>
-                    </span>
-                    <p className='bebecam_logo'>
-                            <img src='../img/all/bebecam_logo.svg' alt=''/>
-                            <span className='txt_logo'></span>
-                    </p>
-                </div>
-            </div>
-        </header>
-    );
+	const { height, width } = useWindowDimensions();
+  const useStyles = makeStyles({
+    header: {
+		width: width,
+		height: height * 2/15,
+    position: "relative",
+		top: 0,
+		backgroundImage: 'url("/img/header_img.jpg")',
+		backgroundSize: "cover",
+		// opacity: 0.7
+    },
+	});
+	const classes = useStyles();
+
+	return (
+		<Fragment>
+			<header>
+				<div className={classes.header}>
+				</div>
+			</header>
+		</Fragment>
+	);
 }
+
+export default Header;
