@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
 import { useState, useEffect } from 'react'
 
-import axios from 'axios';
-import { SearchBar } from '../../components/common/CustomizedInputBase'
+import Base from '../../components/user/Base'
 
-export const Main = (props) => {
+import axios from 'axios';
+
+export const Mypage = (props) => {
 
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(true);
@@ -28,17 +29,10 @@ export const Main = (props) => {
 			return (<Fragment />);
 	if(loading == true)
 			return (
-					<div>
-						<SearchBar />
-						{/* 
-							{
-									campain_list.map(data =>
-										<Campain data={data} key={data.product_code} />
-									)
-							}
-						*/}
+				<div>
+						<Base></Base>
 				</div>
 			);
 } 
 
-export default Main;
+export default Mypage;

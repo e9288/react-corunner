@@ -2,9 +2,12 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import RestoreIcon from '@material-ui/icons/Restore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
+
+import {NavLink} from 'react-router-dom';
+
+import HomeIcon from '@material-ui/icons/Home';
+import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
+import FaceIcon from '@material-ui/icons/Face';
 
 import useWindowDimensions from '../hooks/UseWindowDimensions';
 
@@ -30,9 +33,19 @@ export default function SimpleBottomNavigation() {
       showLabels
       className={classes.bottomNav}
     >
-      <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-      <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-      <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+
+      
+      <NavLink exact to="/mypage"><BottomNavigationAction label="My" icon={<FaceIcon />} /></NavLink>
+      <NavLink exact to="/"><BottomNavigationAction label="Home" icon={<HomeIcon />} /></NavLink>
+      <NavLink exact to="/crew"><BottomNavigationAction label="Crew" icon={<PeopleOutlineIcon />} /></NavLink>
+      
+      
+      
+      {/* 
+      <BottomNavigationAction label="My" icon={<FaceIcon />} />
+      <BottomNavigationAction label="Home" icon={<HomeIcon />} />
+      <BottomNavigationAction label="Crew" icon={<PeopleOutlineIcon />} />
+       */}
     </BottomNavigation>
   );
 }
