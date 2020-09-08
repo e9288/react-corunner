@@ -34,18 +34,18 @@ export default function SimpleBottomNavigation() {
       className={classes.bottomNav}
     >
 
-      
+{/*       
       <NavLink exact to="/mypage"><BottomNavigationAction label="My" icon={<FaceIcon />} /></NavLink>
       <NavLink exact to="/"><BottomNavigationAction label="Home" icon={<HomeIcon />} /></NavLink>
       <NavLink exact to="/crew"><BottomNavigationAction label="Crew" icon={<PeopleOutlineIcon />} /></NavLink>
-      
-      
-      
-      {/* 
-      <BottomNavigationAction label="My" icon={<FaceIcon />} />
-      <BottomNavigationAction label="Home" icon={<HomeIcon />} />
-      <BottomNavigationAction label="Crew" icon={<PeopleOutlineIcon />} />
        */}
+      
+      
+      
+      <BottomNavigationAction label="My" icon={<FaceIcon />} component={NavLink} exact to="/mypage" />
+      <BottomNavigationAction label="Home" icon={<HomeIcon />} component={NavLink} exact to="/" />
+      <BottomNavigationAction label="Crew" icon={<PeopleOutlineIcon />} component={NavLink} exact to="/crew" /> 
+
     </BottomNavigation>
   );
 }
