@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
@@ -19,34 +19,31 @@ export default function SimpleBottomNavigation() {
     width: width,
     position: "absolute",
     bottom: 0,
+    backgroundColor: "#CCCCCC",
+    borderRadius: 20
     },
+    bottomNavAction: {
+      width: width * 1/3
+    }
   });
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  let pathname = window.location.pathname;
+  
+    return (
+      <BottomNavigation
+        value={value}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+        showLabels
+        className={classes.bottomNav}
+      >
+        <BottomNavigationAction className={classes.bottomNavAction} label="내정보" icon={<FaceIcon />} component={NavLink} exact to="/mypage" />
+        <BottomNavigationAction className={classes.bottomNavAction} label="홈" icon={<HomeIcon />} component={NavLink} exact to="/" />
+        <BottomNavigationAction className={classes.bottomNavAction} label="크루정보" icon={<PeopleOutlineIcon />} component={NavLink} exact to="/crew" /> 
+      </BottomNavigation>
+    );
 
-  return (
-    <BottomNavigation
-      value={value}
-      onChange={(event, newValue) => {
-        setValue(newValue);
-      }}
-      showLabels
-      className={classes.bottomNav}
-    >
-
-{/*       
-      <NavLink exact to="/mypage"><BottomNavigationAction label="My" icon={<FaceIcon />} /></NavLink>
-      <NavLink exact to="/"><BottomNavigationAction label="Home" icon={<HomeIcon />} /></NavLink>
-      <NavLink exact to="/crew"><BottomNavigationAction label="Crew" icon={<PeopleOutlineIcon />} /></NavLink>
-       */}
-      
-      
-      
-      <BottomNavigationAction label="My" icon={<FaceIcon />} component={NavLink} exact to="/mypage" />
-      <BottomNavigationAction label="Home" icon={<HomeIcon />} component={NavLink} exact to="/" />
-      <BottomNavigationAction label="Crew" icon={<PeopleOutlineIcon />} component={NavLink} exact to="/crew" /> 
-
-    </BottomNavigation>
-  );
 }
 

@@ -9,7 +9,7 @@ export const Base = (props) => {
   const useStyles = makeStyles({
     base: {
 		width: width,
-		height: height * 2/5,
+		height: height * 1/2,
     position: "relative",
 		top: 0,
 		},
@@ -34,6 +34,19 @@ export const Base = (props) => {
 	});
 	const classes = useStyles();
 
+	const user_level = 3;
+	let user_rank;
+	switch(user_level){
+		case 1:
+				user_rank = '1'
+			break;
+		case 2:
+				user_rank = '2'
+			break;
+		case 3:
+				user_rank = '3'
+			break;
+	}
 	return (
 		<Fragment>
 				<div className={classes.base}>
@@ -44,10 +57,13 @@ export const Base = (props) => {
 					<div className={classes.feat}>
 						102934
 						<br/>
-						<strong>Platinum</strong>
+						<strong>
+							{
+								user_rank
+							}
+						</strong>
 					</div>
 				</div>
-				
 		</Fragment>
 	);
 }
