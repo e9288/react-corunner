@@ -1,0 +1,21 @@
+.MuiBottomNavigation-root {
+  width: 100%;
+  position: absolute;
+  
+  bottom: 0px;
+  background-color: #CCCCCC;
+  border-radius: 20px;
+}
+
+/*
+.MuiBottomNavigationAction-wrapper {
+    display: inline-block;
+    width: 10px;
+    
+}
+
+.MuiBottomNavigationAction-root {
+  display: block;
+  width: 10px;
+}
+*/

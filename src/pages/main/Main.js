@@ -2,7 +2,10 @@ import React, { Fragment } from 'react';
 import { useState, useEffect } from 'react'
 
 import axios from 'axios';
-import { SearchBar } from '../../components/common/CustomizedInputBase'
+import { SearchBar } from '../../components/common/CustomizedInputBase';
+import RunStart from '../../components/main/RunStart';
+
+import './main.css';
 
 export const Main = (props) => {
 
@@ -28,8 +31,11 @@ export const Main = (props) => {
 			return (<Fragment />);
 	if(loading == true)
 			return (
-					<div>
+					<div className='main'>
 						<SearchBar />
+						<br />
+						<br />
+						<RunStart />
 						{/* 
 							{
 									campain_list.map(data =>

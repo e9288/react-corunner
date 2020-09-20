@@ -11,39 +11,59 @@ import FaceIcon from '@material-ui/icons/Face';
 
 import useWindowDimensions from '../hooks/UseWindowDimensions';
 
-export default function SimpleBottomNavigation() {
-  
-  const { height, width } = useWindowDimensions();
-  const useStyles = makeStyles({
-    bottomNav: {
-    width: width,
-    position: "absolute",
-    bottom: 0,
-    backgroundColor: "#CCCCCC",
-    borderRadius: 20
-    },
-    bottomNavAction: {
-      width: width * 1/3
-    }
-  });
-  const classes = useStyles();
-  const [value, setValue] = React.useState(0);
-  let pathname = window.location.pathname;
-  
-    return (
-      <BottomNavigation
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-        showLabels
-        className={classes.bottomNav}
-      >
-        <BottomNavigationAction className={classes.bottomNavAction} label="내정보" icon={<FaceIcon />} component={NavLink} exact to="/mypage" />
-        <BottomNavigationAction className={classes.bottomNavAction} label="홈" icon={<HomeIcon />} component={NavLink} exact to="/" />
-        <BottomNavigationAction className={classes.bottomNavAction} label="크루정보" icon={<PeopleOutlineIcon />} component={NavLink} exact to="/crew" /> 
-      </BottomNavigation>
-    );
+import { withStyles } from '@material-ui/core/styles';
 
+import './SimpleBottomNavigation.css';
+
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
 }
 
+// const { height, width } = useWindowDimensions();
+const { height, width } = getWindowDimensions();
+const useStyles = makeStyles({
+  /*
+  bottomNav: {
+  width: width,
+  position: "absolute",
+  bottom: 0,
+  backgroundColor: "#CCCCCC",
+  borderRadius: 20
+  }
+  */
+});
+
+/*
+const useStyles = makeStyles({
+  root: {
+    width: 500,
+  },
+});
+*/
+
+function SimpleBottomNavigation() {
+  const classes = useStyles();
+  const [value, setValue] = React.useState(0);
+
+  return (
+    <BottomNavigation
+      value={value}
+      onChange={(event, newValue) => {
+        setValue(newValue);
+      }}
+      showLabels
+      className={classes.bottomNav}
+    >
+      <BottomNavigationAction className={classes.bottomNavAction} label="내정보" icon={<FaceIcon />} component={NavLink} exact to="/mypage" />
+      <BottomNavigationAction className={classes.bottomNavAction} label="홈" icon={<HomeIcon />} component={NavLink} exact to="/" />
+      <BottomNavigationAction className={classes.bottomNavAction} label="크루정보" icon={<PeopleOutlineIcon />} component={NavLink} exact to="/crew" /> 
+    </BottomNavigation>
+  );
+}
+
+export default withStyles(useStyles)(SimpleBottomNavigation);
+// export default SimpleBottomNavigation;

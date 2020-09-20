@@ -14,7 +14,7 @@ import Mypage from './pages/user/Mypage';
 function App() {
   const frcsCustNo = useSelector(state => state.userReducer.frcsCustNo);
   return (
-    <div>
+    <div className='app'>
       <Header frcsCustNo={frcsCustNo} />
       
       <Switch>
