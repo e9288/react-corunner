@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import DirectionsRun from '@material-ui/icons/DirectionsRun';
-
+import './RunStart.css';
 const RunStart = () => {
   /*
   const { height, width } = useWindowDimensions();

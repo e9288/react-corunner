@@ -1,0 +1,11 @@
+
+.signBox-root {
+    width: 100%;
+    height: 50%;
+  }
+  
+  .signBtn {
+    float: left;
+    width: 50%;
+    text-align: center;
+  }

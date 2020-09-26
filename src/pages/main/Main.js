@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios';
 import { SearchBar } from '../../components/common/CustomizedInputBase';
 import RunStart from '../../components/main/RunStart';
+import SignBox from '../../components/main/SignBox';
 
 import './main.css';
 
@@ -36,6 +37,7 @@ export const Main = (props) => {
 						<br />
 						<br />
 						<RunStart />
+						<SignBox />
 						{/* 
 							{
 									campain_list.map(data =>

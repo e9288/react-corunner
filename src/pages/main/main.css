@@ -1,11 +1,4 @@
 .main {
-  height: 100%;
-}
-
-.runStart-root {
-  top: 10%;
-  height: 50%;
-  text-align: center;
-  background-color: seagreen;
-  border-radius: 50%;
+  position: relative;
+  height: auto;
 }
